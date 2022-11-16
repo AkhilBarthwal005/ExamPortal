@@ -1,21 +1,22 @@
 package com.exam.examportal.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int roleId;
     private String roleName;
 
-    @OneToOne(mappedBy = "role",cascade = CascadeType.ALL)
-    private User user;
+    @OneToMany(mappedBy = "role")
+    private Set<User> user;
 
     public Role() {
     }
 
-    public Role(String roleName, User user) {
+    public Role(int roleId, String roleName, Set<User> user) {
+        this.roleId = roleId;
         this.roleName = roleName;
         this.user = user;
     }
@@ -36,11 +37,11 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public User getUser() {
+    public Set<User> getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Set<User> user) {
         this.user = user;
     }
 }

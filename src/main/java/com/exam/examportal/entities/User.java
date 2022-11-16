@@ -1,5 +1,7 @@
 package com.exam.examportal.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,9 +19,12 @@ public class User {
     private String phone;
     private boolean isEnabled = true;
 
+    private String Profile;
+
     // user role
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id")
+    @JsonIgnore
     private Role role;
 
     public User() {
@@ -98,6 +103,14 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public String getProfile() {
+        return Profile;
+    }
+
+    public void setProfile(String profile) {
+        Profile = profile;
     }
 
     public Role getRole() {

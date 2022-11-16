@@ -22,11 +22,15 @@ public class UserServiceImpl implements UserService {
         // checking if user is already exist or not.
         User existUser = userRepository.findByUserName(user.getUserName());
         if(existUser != null){
-            System.out.println("User not found Exception.");
-            throw new Exception("User not found Exception.");
+            System.out.println("User found Exception.");
+            throw new Exception("User found Exception.");
         }
-        Role newUserRole = roleRepository.save(role);
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public User getUser(String userName) {
+        return userRepository.findByUserName(userName);
     }
 }
