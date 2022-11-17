@@ -1,6 +1,7 @@
 package com.exam.examportal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 
@@ -22,7 +23,7 @@ public class User {
     private String Profile;
 
     // user role
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "role_id")
     @JsonIgnore
     private Role role;
