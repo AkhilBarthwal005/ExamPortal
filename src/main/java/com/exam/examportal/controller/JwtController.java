@@ -1,6 +1,8 @@
 package com.exam.examportal.controller;
 
+import com.exam.examportal.config.CustomUser;
 import com.exam.examportal.config.JwtUtil;
+import com.exam.examportal.entities.User;
 import com.exam.examportal.model.JwtRequest;
 import com.exam.examportal.model.JwtResponse;
 import com.exam.examportal.service.impl.CustomUserDetailsServiceImpl;
@@ -11,11 +13,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
+@CrossOrigin("*")
 public class JwtController {
 
     @Autowired
@@ -31,18 +34,18 @@ public class JwtController {
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest){
         System.out.println(jwtRequest);
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUserName(),jwtRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(),jwtRequest.getPassword()));
         }
         catch (UsernameNotFoundException e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             System.out.println("UserName Not found Exception");
         }
         catch (BadCredentialsException e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             System.out.println("Bad Credentials");
         }
 
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(jwtRequest.getUserName());
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
 
         String token = jwtUtil.generateToken(userDetails);
 
@@ -50,5 +53,10 @@ public class JwtController {
 
         return ResponseEntity.ok(new JwtResponse(token));
 
+    }
+
+    @GetMapping("/current-user")
+    public CustomUser getCurrentUserDetails(Principal principal){
+        return (CustomUser) customUserDetailsService.loadUserByUsername(principal.getName());
     }
 }

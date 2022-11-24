@@ -20,6 +20,7 @@ public class UserController {
 
     @PostMapping("/")
     public User createUser(@RequestBody User user) throws Exception {
+        user.setProfile("default.png");
         Set<User> users = new HashSet<>();
         users.add(user);
 
@@ -32,8 +33,8 @@ public class UserController {
         return userService.createUser(user,role);
     }
 
-    @GetMapping("/{userName}")
-    public User getUser(@PathVariable String userName){
-       return userService.getUser(userName);
+    @GetMapping("/{username}")
+    public User getUser(@PathVariable String username){
+       return userService.getUser(username);
     }
 }

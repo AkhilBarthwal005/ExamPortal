@@ -57,9 +57,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 System.out.println("Token is not valid and username is not found");
             }
         }
-        else{
-            System.out.println("Invalid Token or it is not start with Bearer");
-        }
 
         // forward request...
         filterChain.doFilter(request,response);

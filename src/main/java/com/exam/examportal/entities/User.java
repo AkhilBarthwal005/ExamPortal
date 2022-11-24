@@ -12,7 +12,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     @Column(unique = true)
-    private String userName;
+    private String username;
     private String firstName;
     private String lastName;
     private String email;
@@ -31,8 +31,8 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String firstName, String lastName, String email, String password, String phone, boolean isEnabled, Role role) {
-        this.userName = userName;
+    public User(String username, String firstName, String lastName, String email, String password, String phone, boolean isEnabled, Role role) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -50,12 +50,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {

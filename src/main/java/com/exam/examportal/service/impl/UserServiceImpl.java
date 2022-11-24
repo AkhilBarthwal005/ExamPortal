@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(User user, Role role) throws Exception {
         // checking if user is already exist or not.
-        User existUser = userRepository.findByUserName(user.getUserName());
+        User existUser = userRepository.findByUsername(user.getUsername());
         if(existUser != null){
             System.out.println("User found Exception.");
             throw new Exception("User found Exception.");
@@ -31,6 +31,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(String userName) {
-        return userRepository.findByUserName(userName);
+        return userRepository.findByUsername(userName);
     }
 }
