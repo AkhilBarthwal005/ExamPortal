@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +18,9 @@ public class ExamPortalApplication implements CommandLineRunner {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public static void main(String[] args) throws Exception {
 
@@ -31,8 +35,8 @@ public class ExamPortalApplication implements CommandLineRunner {
 //        User user = new User();
 //        user.setEmail("newuser@gmail.com");
 //        user.setEnabled(true);
-//        user.setUserName("NewUser");
-//        user.setPassword("NewUser");
+//        user.setUsername("NewUser");
+//        user.setPassword(bCryptPasswordEncoder.encode("NewUser"));
 //        user.setPhone("4567898765");
 //        user.setFirstName("New");
 //        user.setLastName("User");
